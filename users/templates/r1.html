@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
+</head>
+<body>
+    <div>
+     <form method="POST"> 
+         {% csrf_token %} 
+    <!-- <button type="submit" class="btn btn-info my-2">Submit</button> -->
+      <table>
+        <tr>
+            <td>Name:</td><td><input id="name" type="text"/></td>
+        </tr>
+        <tr>
+            <td>PHONE:</td><td><input id="phone" type="text"/></td>
+        </tr>
+        <tr>
+            <td>EMAIL:</td><td><input id="email" type="text"/></td>
+        </tr>
+       
+        <tr>
+            <td>ID_HOD:</td><td><input id="id_hod" type="text"/></td>
+        </tr>
+        <tr>
+            <td>ADDRESS:</td>
+            <td>
+                <input id="address" type="text"/>
+            </td>
+        </tr>            
+      </table>
+       <button>click me</button>
+     </form>
+    </div>
+
+    <script>
+       function (){
+        var token = "{{csrf_token}}";
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var phone = $("#phone").val();
+            var adr = $("#address").val();
+            var idh = $("#id_hod").val();
+           
+        
+        $.ajax({
+            type: "POST",
+            headers: { "X-CSRFToken": token },
+            url: "http://localhost:8000/api/admin/addHod/",
+            data: { name: name,phone: phone,email: email,id_hod: idh,address: adr},
+            dataType: "json",
+
+                success: function (data) {
+            
+                console.log(data);
+            },
+              error: function (data) {
+              console.log(error);
+          }
+        });
+       }
+      </script>
+
+      <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous">
+      </script>
+
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+       integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+      </script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+      </script>
+</body>
+</html>
